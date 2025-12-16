@@ -68,7 +68,7 @@ public class FavoriteController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Favorite tidak ditemukan");
         }
         Tentor tentor = tentorRepository.findById(tentorId).orElseThrow(
-            ()->new RuntimeException("Mentor dengan id terkait tidak ditemukan")
+            ()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Mentor dengan id terkait tidak ditemukan")
         );
 
         tentor.setFavorite(tentor.getCountFavorite()-1);

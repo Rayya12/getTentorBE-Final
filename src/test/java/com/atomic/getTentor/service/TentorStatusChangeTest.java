@@ -19,7 +19,7 @@ import com.atomic.getTentor.model.VerificationStatus;
 import com.atomic.getTentor.repository.TentorRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class TentorStatusChange {
+public class TentorStatusChangeTest {
 
     // constants biar rapi & konsisten
     private static final Integer EXISTING_ID = 1;
