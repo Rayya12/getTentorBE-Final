@@ -26,6 +26,8 @@ public class TentorStatusChange {
     private static final Integer NON_EXISTING_ID = 999;
     private static final VerificationStatus STATUS_APPROVED = VerificationStatus.APPROVED;
     private static final VerificationStatus STATUS_PENDING = VerificationStatus.PENDING;
+    private static final VerificationStatus STATUS_REJECTED = VerificationStatus.REJECTED;
+    private static final VerificationStatus STATUS_SUSPENDED = VerificationStatus.SUSPENDED;
 
     @Mock
     private TentorRepository tentorRepository;
@@ -42,7 +44,6 @@ public class TentorStatusChange {
 
     private Tentor createTentor(VerificationStatus status) {
         Tentor t = new Tentor();
-        // gak usah setId kalau entity kamu memang gak punya setId
         t.setVerificationStatus(status);
         return t;
     }
@@ -89,4 +90,27 @@ public class TentorStatusChange {
         assertEquals(STATUS_PENDING, updated.getVerificationStatus());
         verify(tentorRepository).save(any(Tentor.class));
     }
+
+    @Test
+    void ubahStatus_Success_UpdateToRejected() {
+        when(tentorRepository.findById(EXISTING_ID)).thenReturn(Optional.of(tentor));
+        when(tentorRepository.save(any(Tentor.class))).thenAnswer(inv -> inv.getArgument(0));
+
+        Tentor updated = assertDoesNotThrow(() -> adminService.ubahStatus(EXISTING_ID, "REJECTED"));
+
+        assertEquals(STATUS_REJECTED, updated.getVerificationStatus());
+        verify(tentorRepository).save(any(Tentor.class));
+    }
+
+    @Test
+    void ubahStatus_Success_UpdateToSuspended() {
+        when(tentorRepository.findById(EXISTING_ID)).thenReturn(Optional.of(tentor));
+        when(tentorRepository.save(any(Tentor.class))).thenAnswer(inv -> inv.getArgument(0));
+
+        Tentor updated = assertDoesNotThrow(() -> adminService.ubahStatus(EXISTING_ID, "SUSPENDED"));
+
+        assertEquals(STATUS_SUSPENDED, updated.getVerificationStatus());
+        verify(tentorRepository).save(any(Tentor.class));
+    }
+
 }
