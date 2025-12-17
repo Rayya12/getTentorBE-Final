@@ -21,7 +21,6 @@ import com.atomic.getTentor.repository.TentorRepository;
 @ExtendWith(MockitoExtension.class)
 public class TentorStatusChangeTest {
 
-    // constants biar rapi & konsisten
     private static final Integer EXISTING_ID = 1;
     private static final Integer NON_EXISTING_ID = 999;
     private static final VerificationStatus STATUS_APPROVED = VerificationStatus.APPROVED;
